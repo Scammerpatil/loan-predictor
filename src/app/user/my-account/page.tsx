@@ -37,6 +37,28 @@ const MyAccount = () => {
     }
   };
 
+  const uploadToCloudinary = async (
+    file: File,
+    folderName: string,
+    imageName: string
+  ) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append(
+      "upload_preset",
+      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!
+    );
+    formData.append("folder", folderName);
+    formData.append("public_id", imageName);
+
+    const res = await axios.post(
+      `https://api.cloudinary.com/v1_1/${process.env
+        .NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!}/upload`,
+      formData
+    );
+    return res;
+  };
+
   const handleFileChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     folderName: string,
@@ -54,20 +76,15 @@ const MyAccount = () => {
         alert("File size exceeds 5MB");
         return;
       }
-      const imageResponse = axios.postForm("/api/helper/upload-img", {
-        file,
-        name: imageName,
-        folderName: folderName,
-      });
-      console.log(imageResponse);
-      toast.promise(imageResponse, {
+      const imagePromise = uploadToCloudinary(file, folderName, imageName);
+      toast.promise(imagePromise, {
         loading: "Uploading Image...",
         success: (data: AxiosResponse) => {
           setFormData({
             ...formData,
             [mainPath]: {
               ...formData[mainPath],
-              [path]: data.data.path,
+              [path]: data.data.secure_url,
             },
           });
           return "Image Uploaded Successfully";
@@ -92,18 +109,13 @@ const MyAccount = () => {
         alert("File size exceeds 5MB");
         return;
       }
-      const imageResponse = axios.postForm("/api/helper/upload-img", {
-        file,
-        name: imageName,
-        folderName: folderName,
-      });
-      console.log(imageResponse);
-      toast.promise(imageResponse, {
+      const imagePromise = uploadToCloudinary(file, folderName, imageName);
+      toast.promise(imagePromise, {
         loading: "Uploading Image...",
         success: (data: AxiosResponse) => {
           setFormData({
             ...formData,
-            [path]: data.data.path,
+            [path]: data.data.secure_url,
           });
           return "Image Uploaded Successfully";
         },
