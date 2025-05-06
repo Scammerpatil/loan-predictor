@@ -9,12 +9,18 @@ export async function POST(req: NextRequest) {
     var name = request.get("name") as string;
     name = name.split(" ").join("_");
     const folderName = request.get("folderName");
-    if (!fs.existsSync(`public/${folderName}`)) {
-      fs.mkdirSync(`public/${folderName}`);
+    const currentWorkingDir = process.cwd();
+    const publicDir = path.join(currentWorkingDir);
+    if (!fs.existsSync(path.join(publicDir, `public/${folderName}`))) {
+      fs.mkdirSync(path.join(publicDir, `public/${folderName}`));
     }
     if (file instanceof Blob && typeof name === "string") {
       const fileBuffer = Buffer.from(await file.arrayBuffer());
-      const filePath = path.join(`public/${folderName}`, name + `.jpg`);
+      const filePath = path.join(
+        process.cwd(),
+        `public/${folderName}`,
+        name + `.jpg`
+      );
       fs.writeFileSync(filePath, fileBuffer);
       const imagePath = `/${folderName}/${name}.jpg`;
 
