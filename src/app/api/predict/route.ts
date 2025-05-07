@@ -49,7 +49,7 @@ function parseGeminiResponse(responseText: string) {
 
 export async function POST(req: NextRequest) {
   const formData = await req.json();
-
+  console.log("Received data:", formData);
   try {
     const flaskRes = await fetch(
       "https://novacops.pythonanywhere.com/predict",

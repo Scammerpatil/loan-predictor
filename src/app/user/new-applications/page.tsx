@@ -5,17 +5,17 @@ import toast from "react-hot-toast";
 
 export default function LoanApplicationPage() {
   const [formData, setFormData] = useState({
-    Gender: "1",
-    Married: "1",
+    Gender: "0",
+    Married: "0",
     Dependents: "0",
-    Education: "1",
+    Education: "0",
     Self_Employed: "0",
     ApplicantIncome: "",
     CoapplicantIncome: "",
     LoanAmount: "",
     Loan_Amount_Term: "",
-    Credit_History: "1",
-    Property_Area: "1",
+    Credit_History: "0",
+    Property_Area: "0",
   });
 
   const handleChange = (
@@ -50,7 +50,7 @@ export default function LoanApplicationPage() {
       >
         {[
           { name: "Gender", label: "Gender", options: ["Male", "Female"] },
-          { name: "Married", label: "Married", options: ["Yes", "No"] },
+          { name: "Married", label: "Married", options: ["No", "Yes"] },
           {
             name: "Dependents",
             label: "Number of Dependents",
@@ -64,17 +64,17 @@ export default function LoanApplicationPage() {
           {
             name: "Self_Employed",
             label: "Self Employed",
-            options: ["Yes", "No"],
+            options: ["No", "Yes"],
           },
           {
             name: "Credit_History",
             label: "Credit History",
-            options: ["Good", "Bad"],
+            options: ["Bad", "Good"],
           },
           {
             name: "Property_Area",
             label: "Property Area",
-            options: ["Rural", "Semiurban", "Urban"],
+            options: ["Semiurban", "Urban", "Rural"],
           },
         ].map((field) => (
           <label className="form-control w-full" key={field.name}>

@@ -19,7 +19,7 @@ export default async function POST(
   const templatePath = path.join(process.cwd(), "src/helper/mailTemplate.ejs");
   const template = fs.readFileSync(templatePath, "utf-8");
   const mailOptions = {
-    from: "Travel Buddy | No Reply <",
+    from: "Loan Predictor | No Reply <",
     to: email,
     subject: "Verify Email",
     html: ejs.render(template, { token, name }),

@@ -56,6 +56,7 @@ const MyAccount = () => {
         .NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!}/upload`,
       formData
     );
+    console.log("Cloudinary response:", res.data);
     return res;
   };
 

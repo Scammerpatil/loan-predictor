@@ -48,10 +48,12 @@ export default function ChatBotPage() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-10.5rem)] max-w-2xl mx-auto border rounded-lg shadow-lg bg-base-200">
-      <div className="h-[calc(100vh-13rem)] overflow-y-auto p-4 ">
+      <div className="h-[calc(100vh-13rem)] overflow-y-auto p-4 overflow-hidden">
         {messages.map((msg, index) => (
           <div
-            className={`chat chat-${msg.role === "user" ? "end" : "start"}`}
+            className={`chat ${
+              msg.role === "user" ? "chat-end" : "chat-start"
+            }`}
             key={index}
           >
             <div className="chat-image avatar">
@@ -86,23 +88,25 @@ export default function ChatBotPage() {
       </div>
 
       <form
-        className="flex items-center mt-4 border-t pt-4"
+        className="flex items-center justify-center mt-4"
         onSubmit={sendMessage}
       >
-        <input
-          type="text"
-          className="input input-primary input-bordered w-full"
-          placeholder="Ask me about sleep..."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-        <button
-          className="ml-3 btn btn-primary p-3 rounded-full"
-          onClick={sendMessage}
-          type="submit"
-        >
-          <IconSend size={24} />
-        </button>
+        <div className="join w-full">
+          <input
+            type="text"
+            className="input input-primary w-full join-item"
+            placeholder="Ask me about sleep..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+          <button
+            className="btn btn-primary p-3 join-item"
+            onClick={sendMessage}
+            type="submit"
+          >
+            <IconSend size={24} />
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -59,6 +59,7 @@ const SignUp = () => {
       toast.error("Please fill all the fields");
       return;
     }
+    console.log("Form Data:", formData);
     try {
       const response = axios.post("/api/auth/signup", { formData });
       toast.promise(response, {
@@ -288,6 +289,8 @@ const SignUp = () => {
                 </legend>
                 <input
                   type="text"
+                  minLength={12}
+                  maxLength={12}
                   placeholder="Aadhaar Number"
                   className="input input-bordered input-primary w-full text-base-content"
                   value={formData.aadharCard.number}
@@ -322,6 +325,8 @@ const SignUp = () => {
                 <legend className="fieldset-legend text-base">PAN Card</legend>
                 <input
                   type="text"
+                  minLength={10}
+                  maxLength={10}
                   placeholder="PAN Number"
                   className="input input-bordered input-primary w-full text-base-content"
                   value={formData.panCard.number}

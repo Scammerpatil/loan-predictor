@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
       {
         hostname: "cdn-icons-png.flaticon.com",
       },
+      {
+        hostname: "res.cloudinary.com",
+      },
     ],
   },
 };
